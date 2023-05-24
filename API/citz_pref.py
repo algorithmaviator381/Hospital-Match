@@ -13,10 +13,7 @@ def collect_citizen_preferences():
     preferences["distance_hotels"] = float(input("Distance from Nearby Hotels (in miles): "))
     preferences["years_of_experience"] = int(input("Years of Experience of Doctors: "))
     
-    # Add more preferences as needed
-    
     return preferences
 
-# Example usage:
 citizen_preferences = collect_citizen_preferences()
 print(citizen_preferences)
