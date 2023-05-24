@@ -27,32 +27,3 @@ class Hospital:
         self.insurance_coverage = insurance_coverage
 
 
-hospitals = [
-    Hospital(
-        name="Hospital A",
-        doctor_speciality="Cardiology",
-        cost=500,
-        available_beds=50,
-        staff_quality=4.5,
-        people_reviews=100,
-        icu_facilities=True,
-        distance_medicals=1.5,
-        distance_hotels=0.8,
-        years_of_experience=15,
-        hospital_size=10000,
-        waiting_time=30,
-        technology_equipment=True,
-        emergency_response_time=10,
-        specialized_units=["Pediatrics", "Orthopedics"],
-        infection_control_measures=True,
-        accreditation=True,
-        surgical_success_rates=0.9,
-        patient_satisfaction=4.7,
-        staff_patient_ratio=1:5,
-        avg_length_of_stay=5,
-        availability_specialists=["Cardiologist", "Orthopedic Surgeon"],
-        research_innovation=True,
-        community_outreach=True,
-        insurance_coverage=["Aetna", "Blue Cross"]
-    )
-]
