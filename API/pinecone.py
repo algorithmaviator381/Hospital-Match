@@ -4,8 +4,9 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from data import hospital_dataset
 from citz_pref import citizen_preferences
 from preprocess import preprocess_reviews
+from combine_attributes import combine_attributes
 
-# Step 1: Preprocess and vectorize reviews
+# Step 1: Preprocess and vectorize reviews (module preprocess)
 def preprocess_reviews(reviews):
     preprocessed_reviews = preprocess_reviews(reviews)
     return preprocessed_reviews
@@ -15,30 +16,9 @@ def vectorize_reviews(preprocessed_reviews):
     review_vectors = vectorizer.fit_transform(preprocessed_reviews).toarray()
     return review_vectors
 
-# Step 2: Combine attribute vectors
-def combine_attributes(hospital):
-    attribute_vector = np.array([
-        hospital.cost,
-        hospital.available_beds,
-        hospital.staff_quality,
-        hospital.icu_facilities,
-        hospital.distance_medicals,
-        hospital.distance_hotels,
-        hospital.years_of_experience,
-        hospital.hospital_size,
-        hospital.waiting_time,
-        hospital.technology_equipment,
-        hospital.emergency_response_time,
-        hospital.specialized_units,
-        hospital.infection_control_measures,
-        hospital.accreditation,
-        hospital.surgical_success_rates,
-        hospital.patient_satisfaction,
-        hospital.staff_patient_ratio,
-        hospital.avg_length_of_stay,
-        hospital.availability_specialists,
-        hospital.insurance_coverage
-    ])    
+# Step 2: Combine attribute vectors (module combine_attributes)
+def combine_attributes(hospital_dataset):
+    attribute_vector = combine_attributes(hospital_dataset)
     return attribute_vector
 
 

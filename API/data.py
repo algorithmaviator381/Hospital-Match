@@ -1,5 +1,5 @@
 class Hospital:
-    def __init__(self, name, doctor_speciality, cost, available_beds, staff_quality, people_reviews, icu_facilities, distance_medicals, distance_hotels, years_of_experience, hospital_size, waiting_time, technology_equipment, emergency_response_time, specialized_units, infection_control_measures, accreditation, surgical_success_rates, patient_satisfaction, staff_patient_ratio, avg_length_of_stay, availability_specialists, research_innovation, community_outreach, insurance_coverage):
+    def __init__(self, name, doctor_speciality, cost, people_reviews, icu_facilities, distance_medicals, distance_hotels, years_of_experience, hospital_size, waiting_time, technology_equipment, emergency_response_time, specialized_units, infection_control_measures, accreditation, surgical_success_rates, patient_satisfaction, staff_patient_ratio, avg_length_of_stay, availability_specialists, insurance_coverage):
         self.name = name
         self.doctor_speciality = doctor_speciality
         self.cost = cost
@@ -22,14 +22,11 @@ class Hospital:
         self.availability_specialists = availability_specialists
         self.insurance_coverage = insurance_coverage
 
-
 hospital_dataset = [
     Hospital(
         name="Hospital A",
         doctor_speciality="Cardiology",
         cost=500,
-        available_beds=100,
-        staff_quality=4.5,
         people_reviews="Excellent hospital with great staff",
         icu_facilities=True,
         distance_medicals=2.5,
@@ -47,16 +44,12 @@ hospital_dataset = [
         staff_patient_ratio="1:5",
         avg_length_of_stay=5,
         availability_specialists=True,
-        research_innovation=True,
-        community_outreach=True,
         insurance_coverage=True
     ),
     Hospital(
         name="Hospital B",
         doctor_speciality="Orthopedics",
         cost=800,
-        available_beds=50,
-        staff_quality=4.2,
         people_reviews="Good hospital, but waiting times are long",
         icu_facilities=True,
         distance_medicals=3.2,
@@ -74,8 +67,6 @@ hospital_dataset = [
         staff_patient_ratio="1:4",
         avg_length_of_stay=6,
         availability_specialists=True,
-        research_innovation=False,
-        community_outreach=True,
         insurance_coverage=True
     )
 ]
