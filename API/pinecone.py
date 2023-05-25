@@ -6,6 +6,8 @@ from citz_pref import citizen_preferences
 from preprocess import preprocess_reviews
 from combine_attributes import combine_attributes
 
+pinecone.init(api_key="YOUR_API_KEY")
+
 # Step 1: Preprocess and vectorize reviews (module preprocess)
 def preprocess_reviews(reviews):
     preprocessed_reviews = preprocess_reviews(reviews)
@@ -21,26 +23,24 @@ def combine_attributes(hospital):
     attribute_vector = combine_attributes(hospital)
     return attribute_vector
 
-
 # Step 3: Index the hospital data
-def index_hospitals(hospitals):
-    pinecone.init(api_key="YOUR_API_KEY")  # Initialize Pinecone with your API key
+def index_hospitals(hospital_dataset):
     index = pinecone.Index(index_name="hospital_recommendations")
-
+    
     vectors = []
-    for hospital in hospitals:
+    for hospital in hospital_dataset:
         attribute_vector = combine_attributes(hospital)
         vectors.append(attribute_vector)
 
     # Convert review text into vectors
-    preprocessed_reviews = preprocess_reviews([hospital.people_reviews for hospital in hospitals])
+    preprocessed_reviews = preprocess_reviews([hospital.people_reviews for hospital in hospital_dataset])
     review_vectors = vectorize_reviews(preprocessed_reviews)
 
     # Concatenate attribute vectors with review vectors
     concatenated_vectors = np.concatenate((vectors, review_vectors), axis=1)
 
     # Index the hospital vectors
-    index.upsert(items=np.array(concatenated_vectors), ids=np.array([hospital.name for hospital in hospitals]))
+    index.upsert(items=np.array(concatenated_vectors), ids=np.array([hospital.name for hospital in hospital_dataset]))
 
     return index
 
