@@ -17,8 +17,8 @@ def vectorize_reviews(preprocessed_reviews):
     return review_vectors
 
 # Step 2: Combine attribute vectors (module combine_attributes)
-def combine_attributes(hospital_dataset):
-    attribute_vector = combine_attributes(hospital_dataset)
+def combine_attributes(hospital):
+    attribute_vector = combine_attributes(hospital)
     return attribute_vector
 
 
