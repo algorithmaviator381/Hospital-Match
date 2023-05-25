@@ -4,6 +4,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from data import hospital_dataset
 from citz_pref import citizen_preferences
 
+
 # Step 1: Preprocess and vectorize reviews
 def preprocess_reviews(reviews):
     # Implement your preprocessing logic here
