@@ -13,13 +13,14 @@ def collect_citizen_preferences():
     
     return preferences
 
-sample_preference = {
-    "doctor_speciality": "Cardiology",
-    "cost": 600.0,
-    "icu_facilities": True,
-    "distance_home": 5.2,
-    "years_of_experience": 12
-}
+# sample_preference = {
+#     "doctor_speciality": "Cardiology",
+#     "cost": 600.0,
+#     "icu_facilities": True,
+#     "distance_home": 5.2,
+#     "years_of_experience": 12
+# }
 
 citizen_preferences = collect_citizen_preferences()
-citizen_preferences.update(sample_preference)
+
+#citizen_preferences.update(sample_preference)
