@@ -1,7 +1,7 @@
 import pinecone
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
-from data import hospital_dataset
+from data import hospital_dataset,Hospital
 from citz_pref import citizen_preferences
 from preprocess import preprocess_reviews
 from combine_attributes import combine_attributes
@@ -59,7 +59,30 @@ def recommend_hospitals(user_preferences, index, num_results=10):
 index = index_hospitals(hospital_dataset)
 
 # Step 4: Rank hospitals based on user preferences
-# user_preferences = Hospital(...)  # User preferences
-# recommended_hospitals = recommend_hospitals(user_preferences, index)
+user_preferences = Hospital(
+    name="User Hospital",
+    doctor_speciality="User Speciality",
+    cost=500,  # Example cost preference
+    people_reviews="",  # Example empty reviews
+    icu_facilities=True,  # Example ICU facilities preference
+    distance_medicals=10,  # Example distance preference
+    distance_hotels=5,  # Example distance preference
+    years_of_experience=10,  # Example years of experience preference
+    hospital_size="Medium",  # Example hospital size preference
+    waiting_time=30,  # Example waiting time preference
+    technology_equipment=True,  # Example technology equipment preference
+    emergency_response_time="Fast",  # Example emergency response time preference
+    specialized_units=["Cardiology", "Orthopedics"],  # Example specialized units preference
+    infection_control_measures=True,  # Example infection control measures preference
+    accreditation=True,  # Example accreditation preference
+    surgical_success_rates=0.9,  # Example surgical success rates preference
+    patient_satisfaction=4.5,  # Example patient satisfaction preference
+    staff_patient_ratio=0.05,  # Example staff-patient ratio preference
+    avg_length_of_stay=5,  # Example average length of stay preference
+    availability_specialists=True,  # Example availability of specialists preference
+    insurance_coverage=True  # Example insurance coverage preference
+)
 
-# print(recommended_hospitals)
+recommended_hospitals = recommend_hospitals(user_preferences, index)
+
+print(recommended_hospitals)
