@@ -17,16 +17,30 @@ def vectorize_reviews(preprocessed_reviews):
 
 # Step 2: Combine attribute vectors
 def combine_attributes(hospital):
-    # Combine the hospital attributes into a single vector
     attribute_vector = np.array([
         hospital.cost,
+        hospital.available_beds,
+        hospital.staff_quality,
         hospital.icu_facilities,
+        hospital.distance_medicals,
+        hospital.distance_hotels,
         hospital.years_of_experience,
-        # Include other relevant attributes
-    ])
-
-    # Return the combined attribute vector
+        hospital.hospital_size,
+        hospital.waiting_time,
+        hospital.technology_equipment,
+        hospital.emergency_response_time,
+        hospital.specialized_units,
+        hospital.infection_control_measures,
+        hospital.accreditation,
+        hospital.surgical_success_rates,
+        hospital.patient_satisfaction,
+        hospital.staff_patient_ratio,
+        hospital.avg_length_of_stay,
+        hospital.availability_specialists,
+        hospital.insurance_coverage
+    ])    
     return attribute_vector
+
 
 # Step 3: Index the hospital data
 def index_hospitals(hospitals):
