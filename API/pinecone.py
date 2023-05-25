@@ -55,14 +55,11 @@ def recommend_hospitals(user_preferences, index, num_results=10):
 
     return results[0].ids  # Return the IDs of the recommended hospitals
 
-# Example usage
-hospitals = [...]  # List of Hospital objects
-
 # Step 3: Index the hospital data
-index = index_hospitals(hospitals)
+index = index_hospitals(hospital_dataset)
 
 # Step 4: Rank hospitals based on user preferences
-#user_preferences = Hospital(...)  # User preferences
+# user_preferences = Hospital(...)  # User preferences
 # recommended_hospitals = recommend_hospitals(user_preferences, index)
 
 # print(recommended_hospitals)
