@@ -68,7 +68,7 @@ hospitals = [...]  # List of Hospital objects
 index = index_hospitals(hospitals)
 
 # Step 4: Rank hospitals based on user preferences
-user_preferences = Hospital(...)  # User preferences
-recommended_hospitals = recommend_hospitals(user_preferences, index)
+#user_preferences = Hospital(...)  # User preferences
+# recommended_hospitals = recommend_hospitals(user_preferences, index)
 
-print(recommended_hospitals)
+# print(recommended_hospitals)
