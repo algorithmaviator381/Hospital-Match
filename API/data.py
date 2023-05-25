@@ -3,8 +3,6 @@ class Hospital:
         self.name = name
         self.doctor_speciality = doctor_speciality
         self.cost = cost
-        self.available_beds = available_beds
-        self.staff_quality = staff_quality
         self.people_reviews = people_reviews
         self.icu_facilities = icu_facilities
         self.distance_medicals = distance_medicals
@@ -22,8 +20,6 @@ class Hospital:
         self.staff_patient_ratio = staff_patient_ratio
         self.avg_length_of_stay = avg_length_of_stay
         self.availability_specialists = availability_specialists
-        self.research_innovation = research_innovation
-        self.community_outreach = community_outreach
         self.insurance_coverage = insurance_coverage
 
 
