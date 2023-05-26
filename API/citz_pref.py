@@ -6,7 +6,6 @@ def collect_citizen_preferences():
     
     preferences["doctor_speciality"] = input("Doctor Speciality: ")
     preferences["cost"] = float(input("Average cost of hospitalization: "))
-    preferences["available_beds"] = int(input("Number of Available Beds: "))
     preferences["icu_facilities"] = input("ICU Facilities (Yes/No): ").lower() == "yes"
     preferences["distance_home"] = float(input("Distance from your home (in km): "))
     preferences["years_of_experience"] = int(input("Years of Experience of Doctors: "))

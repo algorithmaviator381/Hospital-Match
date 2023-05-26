@@ -3,6 +3,7 @@ import numpy as np
 def attributes_array(hospital):
     attribute_vector = np.array(
         [
+            hospital.id,
             hospital.cost,
             hospital.icu_facilities,
             hospital.years_of_experience,

@@ -21,17 +21,57 @@ def vectorize_reviews(preprocessed_reviews):
 
 # Step 2: Combine attribute vectors (module combine_attributes)
 def combine_attributes(hospital):
-    attribute_vector = attributes_array(hospital)
+    attribute_vector = np.array(
+        [
+            hospital.id,
+            hospital.cost,
+            hospital.icu_facilities,
+            hospital.years_of_experience,
+            hospital.hospital_size,
+            hospital.waiting_time,
+            hospital.technology_equipment,
+            hospital.emergency_response_time,
+            hospital.specialized_units,
+            hospital.infection_control_measures,
+            hospital.accreditation,
+            hospital.surgical_success_rates,
+            hospital.patient_satisfaction,
+            hospital.staff_patient_ratio,
+            hospital.avg_length_of_stay,
+            hospital.availability_specialists,
+            hospital.insurance_coverage
+        ]
+    )
     return attribute_vector
 
 # Step 3: Index the hospital data
 def index_hospitals(hospital_dataset):
     index = pinecone.Index(index_name="hospital_recommendations")
-    
+
     vectors = []
     for hospital in hospital_dataset:
-        attribute_vector = attributes_array(hospital)
-        vectors.append(attribute_vector)
+        attribute_vector = np.array(
+        [
+            hospital.id,
+            hospital.cost,
+            hospital.icu_facilities,
+            hospital.years_of_experience,
+            hospital.hospital_size,
+            hospital.waiting_time,
+            hospital.technology_equipment,
+            hospital.emergency_response_time,
+            hospital.specialized_units,
+            hospital.infection_control_measures,
+            hospital.accreditation,
+            hospital.surgical_success_rates,
+            hospital.patient_satisfaction,
+            hospital.staff_patient_ratio,
+            hospital.avg_length_of_stay,
+            hospital.availability_specialists,
+            hospital.insurance_coverage
+        ])
+    
+    vectors.append(attribute_vector)
 
     # Convert review text into vectors
     preprocessed_reviews = preprocess_reviews([hospital.people_reviews for hospital in hospital_dataset])
