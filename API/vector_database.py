@@ -2,11 +2,11 @@ import pinecone
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from data import hospital_dataset,Hospital
-from citz_pref import citizen_preferences
+#from citz_pref import citizen_preferences  #importing citizen preferences  
 from preprocess import preprocess_reviews
 from combine_attributes import combine_attributes
 
-pinecone.init(api_key="YOUR_API_KEY")
+pinecone.init(api_key="API_KEY!!!!")
 
 # Step 1: Preprocess and vectorize reviews (module preprocess)
 def preprocess_reviews(reviews):
@@ -82,7 +82,3 @@ user_preferences = Hospital(
     availability_specialists=True, 
     insurance_coverage=True  
 )
-
-recommended_hospitals = recommend_hospitals(user_preferences, index)
-
-print(recommended_hospitals)
