@@ -1,5 +1,6 @@
 class Hospital:
-    def __init__(self, name, doctor_speciality, cost, people_reviews, icu_facilities, distance_medicals, distance_hotels, years_of_experience, hospital_size, waiting_time, technology_equipment, emergency_response_time, specialized_units, infection_control_measures, accreditation, surgical_success_rates, patient_satisfaction, staff_patient_ratio, avg_length_of_stay, availability_specialists, insurance_coverage):
+    def __init__(self, id, name, doctor_speciality, cost, people_reviews, icu_facilities, distance_medicals, distance_hotels, years_of_experience, hospital_size, waiting_time, technology_equipment, emergency_response_time, specialized_units, infection_control_measures, accreditation, surgical_success_rates, patient_satisfaction, staff_patient_ratio, avg_length_of_stay, availability_specialists, insurance_coverage):
+        self.id = id
         self.name = name
         self.doctor_speciality = doctor_speciality
         self.cost = cost
@@ -24,6 +25,7 @@ class Hospital:
 
 hospital_dataset = [
     Hospital(
+        id = 1,
         name="Hospital A",
         doctor_speciality="Cardiology",
         cost=500,
@@ -47,6 +49,7 @@ hospital_dataset = [
         insurance_coverage=True
     ),
     Hospital(
+        id = 2,
         name="Hospital B",
         doctor_speciality="Orthopedics",
         cost=800,

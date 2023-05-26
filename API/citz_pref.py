@@ -2,7 +2,7 @@ def collect_citizen_preferences():
     preferences = {}
     
     print("Welcome to the Citizen Preference Collection")
-    print("Please provide your preferences for the following characteristics:")
+    print("Please provide your preferences for the following characteristics:\n\n")
     
     preferences["doctor_speciality"] = input("Doctor Speciality: ")
     preferences["cost"] = float(input("Average cost of hospitalization: "))
