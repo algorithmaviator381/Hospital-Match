@@ -19,66 +19,60 @@ def vectorize_reviews(preprocessed_reviews):
     review_vectors = vectorizer.fit_transform(preprocessed_reviews).toarray()
     return review_vectors
 
+def preprocess_specialized_units(specialized_units):
+    # Preprocess the specialized_units attribute here
+    # For example, you can convert it into a one-hot encoding representation
+    unique_units = set(unit for units in specialized_units for unit in units)
+    unit_mapping = {unit: i for i, unit in enumerate(unique_units)}
+    preprocessed_units = [[unit_mapping[unit] for unit in units] for units in specialized_units]
+    return preprocessed_units
+
+
 # Step 2: Combine attribute vectors (module combine_attributes)
 def combine_attributes(hospital):
-    attribute_vector = np.array(
-        [
-            hospital.id,
-            hospital.cost,
-            hospital.icu_facilities,
-            hospital.years_of_experience,
-            hospital.hospital_size,
-            hospital.waiting_time,
-            hospital.technology_equipment,
-            hospital.emergency_response_time,
-            hospital.specialized_units,
-            hospital.infection_control_measures,
-            hospital.accreditation,
-            hospital.surgical_success_rates,
-            hospital.patient_satisfaction,
-            hospital.staff_patient_ratio,
-            hospital.avg_length_of_stay,
-            hospital.availability_specialists,
-            hospital.insurance_coverage
-        ]
-    )
+    attribute_vector = np.array([
+        hospital.id,
+        hospital.cost,
+        hospital.icu_facilities,
+        hospital.years_of_experience,
+        hospital.hospital_size,
+        hospital.waiting_time,
+        hospital.technology_equipment,
+        hospital.emergency_response_time,
+        hospital.infection_control_measures,
+        hospital.accreditation,
+        hospital.surgical_success_rates,
+        hospital.patient_satisfaction,
+        hospital.staff_patient_ratio,
+        hospital.avg_length_of_stay,
+        hospital.availability_specialists,
+        hospital.insurance_coverage
+    ])
     return attribute_vector
-
+    
 # Step 3: Index the hospital data
 def index_hospitals(hospital_dataset):
     index = pinecone.Index(index_name="hospital_recommendations")
 
-    vectors = []
+    attribute_vectors = []
     for hospital in hospital_dataset:
-        attribute_vector = np.array(
-        [
-            hospital.id,
-            hospital.cost,
-            hospital.icu_facilities,
-            hospital.years_of_experience,
-            hospital.hospital_size,
-            hospital.waiting_time,
-            hospital.technology_equipment,
-            hospital.emergency_response_time,
-            hospital.specialized_units,
-            hospital.infection_control_measures,
-            hospital.accreditation,
-            hospital.surgical_success_rates,
-            hospital.patient_satisfaction,
-            hospital.staff_patient_ratio,
-            hospital.avg_length_of_stay,
-            hospital.availability_specialists,
-            hospital.insurance_coverage
-        ])
-    
-    vectors.append(attribute_vector)
+        attribute_vector = combine_attributes(hospital)
+        attribute_vectors.append(attribute_vector)
 
     # Convert review text into vectors
     preprocessed_reviews = preprocess_reviews([hospital.people_reviews for hospital in hospital_dataset])
     review_vectors = vectorize_reviews(preprocessed_reviews)
 
-    # Concatenate attribute vectors with review vectors
-    concatenated_vectors = np.concatenate((vectors, review_vectors), axis=1)
+    # Preprocess specialized_units separately
+    specialized_units = [hospital.specialized_units for hospital in hospital_dataset]
+    preprocessed_units = preprocess_specialized_units(specialized_units)
+
+    # Pad the preprocessed_units to have a fixed length
+    max_units = max(len(units) for units in preprocessed_units)
+    padded_units = [units + [0] * (max_units - len(units)) for units in preprocessed_units]
+
+    # Combine all the attribute vectors
+    concatenated_vectors = np.concatenate((attribute_vectors, padded_units, review_vectors), axis=1)
 
     # Index the hospital vectors
     index.upsert(items=np.array(concatenated_vectors), ids=np.array([hospital.name for hospital in hospital_dataset]))
