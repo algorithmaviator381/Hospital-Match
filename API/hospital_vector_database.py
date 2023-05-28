@@ -1,8 +1,4 @@
 import pinecone
-import numpy as np
-from citz_pref import collect_citizen_preferences
-from data import hospital_dataset
-from data import Hospital
 
 pinecone.init(api_key="A_P_I_K_E_Y")
 index_name = "hospital-recommendation"
