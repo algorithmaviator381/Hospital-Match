@@ -7,14 +7,16 @@ from data import Hospital
 pinecone.init(api_key="A_P_I_K_E_Y")
 index_name = "hospital-recommendation"
 pinecone.create_index(name=index_name, dimension=100, metric="cosine")
+index = pinecone.Index(index_name=index_name)
+embeddings = []
 
 def main():
     pinecone.init(api_key="A_P_I_K_E_Y")
     index_name = "hospital-recommendation"
     pinecone.create_index(name=index_name, dimension=100, metric="cosine")
 
-    index = pinecone.Index(index_name=index_name)
-    embeddings = []
+    
+    
 
     for hospital in hospital_dataset:
         vector = np.random.rand(100)  # Replace this with your actual vector representation of each hospital
