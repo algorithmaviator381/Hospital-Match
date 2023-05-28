@@ -2,7 +2,7 @@ import numpy as np
 from citz_pref import collect_citizen_preferences
 from data import hospital_dataset
 from recommendations import recommend_hospitals
-from hospital_vector_database import index, embeddings, index_name, delete_index
+from hospital_vector_database import index, embeddings, delete_index
 
 def main():
 
