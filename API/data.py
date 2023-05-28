@@ -1,5 +1,5 @@
 class Hospital:
-    def __init__(self, id, name, doctor_speciality, phone, cost, icu_facilities, years_of_experience, specialized_units, infection_control_measures, accreditation, surgical_success_rates, patient_satisfaction, insurance_coverage):
+    def __init__(self, id, name, doctor_speciality, phone, cost, icu_facilities, years_of_experience, specialized_units, infection_control_measures, accreditation, surgical_success_rates, patient_satisfaction, insurance_coverage, beds_availability):
         self.id = id
         self.name = name
         self.doctor_speciality = doctor_speciality
@@ -13,6 +13,7 @@ class Hospital:
         self.surgical_success_rates = surgical_success_rates
         self.patient_satisfaction = patient_satisfaction
         self.insurance_coverage = insurance_coverage
+        self.beds_availability = beds_availability 
 
 hospital_dataset = [
     Hospital(
@@ -28,7 +29,8 @@ hospital_dataset = [
         accreditation=True,
         surgical_success_rates=0.92,
         patient_satisfaction=0.85,
-        insurance_coverage=True
+        insurance_coverage=True,
+        beds_availability=True
     ),
     Hospital(
         id=2,
@@ -43,7 +45,8 @@ hospital_dataset = [
         accreditation=True,
         surgical_success_rates=0.95,
         patient_satisfaction=0.88,
-        insurance_coverage=True
+        insurance_coverage=True,
+        beds_availability=True
     ),
     Hospital(
         id=3,
@@ -58,7 +61,8 @@ hospital_dataset = [
         accreditation=True,
         surgical_success_rates=0.88,
         patient_satisfaction=0.82,
-        insurance_coverage=True
+        insurance_coverage=True,
+        beds_availability=True
     ),
     Hospital(
         id=4,
@@ -73,7 +77,8 @@ hospital_dataset = [
         accreditation=True,
         surgical_success_rates=0.94,
         patient_satisfaction=0.87,
-        insurance_coverage=True
+        insurance_coverage=True,
+        beds_availability=True
     ),
     Hospital(
         id=5,
@@ -88,6 +93,7 @@ hospital_dataset = [
         accreditation=True,
         surgical_success_rates=0.90,
         patient_satisfaction=0.84,
-        insurance_coverage=True
+        insurance_coverage=True,
+        beds_availability=True
     )
 ]
