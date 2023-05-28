@@ -55,4 +55,5 @@ hospitals = [
 recommendations = create_recommendation(user_preferences, hospitals, top_n=3)
 
 for hospital, similarity_score in recommendations:
-    print(f"Recommended Hospital: {hospital.name} | Similarity Score: {similarity_score}")
+    print(f"Recommended Hospital: {hospital.name}")
+    print(f"Similarity Score: {similarity_score}", end="\n\n")
