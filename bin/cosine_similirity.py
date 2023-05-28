@@ -40,16 +40,16 @@ def create_recommendation(user_preferences, hospitals, top_n=5):
 user_preferences = [3000, True, 2.0, 1.5, 5, 80, 0.6, 90]
 
 hospitals = [
-    Hospital(1, "ABC Hospital", "Cardiology", 5000, True, 2.5, 1.2, 10, "Cardiac Care Unit", True, 85, 0.5, 90),
-    Hospital(2, "XYZ Hospital", "Orthopedics", 4500, True, 1.8, 0.9, 8, "Orthopedic Surgery", True, 90, 0.6, 80),
-    Hospital(3, "PQR Hospital", "Neurology", 5500, True, 3.2, 1.5, 12, "Neurological Care Unit", True, 80, 0.4, 95),
-    Hospital(4, "EFG Hospital", "Oncology", 6000, False, 4.0, 2.0, 15, "Cancer Treatment", False, 70, 0.7, 75),
-    Hospital(5, "LMN Hospital", "Pediatrics", 4000, True, 2.0, 1.0, 6, "Pediatric Care Unit", True, 95, 0.5, 85),
-    Hospital(6, "RST Hospital", "Dermatology", 3500, False, 2.5, 1.2, 8, "Dermatology Clinic", True, 70, 0.6, 70),
-    Hospital(7, "HIJ Hospital", "Gynecology", 4800, True, 3.5, 1.7, 10, "Maternity Care Unit", True, 75, 0.4, 90),
-    Hospital(8, "MNO Hospital", "Urology", 4200, False, 2.8, 1.4, 9, "Urology Clinic", True, 80, 0.5, 80),
-    Hospital(9, "JKL Hospital", "ENT", 3800, True, 1.5, 0.8, 7, "ENT Clinic", False, 65, 0.8, 70),
-    Hospital(10, "UVW Hospital", "Psychiatry", 4400, True, 2.2, 1.1, 6, "Psychiatric Care Unit", True, 90, 0.6, 85)
+    Hospital(1, "Hospital 1", "Cardiology", 5000, True, 2.5, 1.2, 10, "Cardiac Care Unit", True, 85, 0.5, 90),
+    Hospital(2, "Hospital 2", "Orthopedics", 4500, True, 1.8, 0.9, 8, "Orthopedic Surgery", True, 90, 0.6, 80),
+    Hospital(3, "Hospital 3", "Neurology", 5500, True, 3.2, 1.5, 12, "Neurological Care Unit", True, 80, 0.4, 95),
+    Hospital(4, "Hospital 4", "Oncology", 6000, False, 4.0, 2.0, 15, "Cancer Treatment", False, 70, 0.7, 75),
+    Hospital(5, "Hospital 5", "Pediatrics", 4000, True, 2.0, 1.0, 6, "Pediatric Care Unit", True, 95, 0.5, 85),
+    Hospital(6, "Hospital 6", "Dermatology", 3500, False, 2.5, 1.2, 8, "Dermatology Clinic", True, 70, 0.6, 70),
+    Hospital(7, "Hospital 7", "Gynecology", 4800, True, 3.5, 1.7, 10, "Maternity Care Unit", True, 75, 0.4, 90),
+    Hospital(8, "Hospital 8", "Urology", 4200, False, 2.8, 1.4, 9, "Urology Clinic", True, 80, 0.5, 80),
+    Hospital(9, "Hospital 9", "ENT", 3800, True, 1.5, 0.8, 7, "ENT Clinic", False, 65, 0.8, 70),
+    Hospital(10, "Hospital 10", "Psychiatry", 4400, True, 2.2, 1.1, 6, "Psychiatric Care Unit", True, 90, 0.6, 85)
 ]
 
 recommendations = create_recommendation(user_preferences, hospitals, top_n=3)
