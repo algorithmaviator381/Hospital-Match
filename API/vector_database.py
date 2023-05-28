@@ -1,5 +1,6 @@
 import pinecone
 import numpy as np
+from citz_pref import collect_citizen_preferences
 
 class Hospital:
     def __init__(self, id, name, doctor_speciality, phone, cost, icu_facilities, years_of_experience, specialized_units, infection_control_measures, accreditation, surgical_success_rates, patient_satisfaction, insurance_coverage, beds_availability):
@@ -62,12 +63,7 @@ def main():
     query_vector = np.random.rand(100)  # Replace this with your actual query vector
 
     # User preferences (modify as per your requirements)
-    preferences = {
-        "doctor_speciality": "Orthopedics",
-        "max_cost": 15000,
-        "icu_facilities": True,
-        "min_experience": 10
-    }
+    preferences = collect_citizen_preferences()
 
     recommended_hospitals = recommend_hospitals(query_vector, top_k=5, preferences=preferences)
     for hospital_id in recommended_hospitals:
