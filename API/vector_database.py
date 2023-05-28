@@ -71,7 +71,7 @@ def main():
 
     recommended_hospitals = recommend_hospitals(query_vector, top_k=5, preferences=preferences)
     for hospital_id in recommended_hospitals:
-        hospital = hospital_dataset[int(hospital_id) - 1]  # Assuming hospital ids start from 1
+        hospital = hospital_dataset[int(hospital_id) - 1]
         print("Hospital ID:", hospital.id)
         print("Hospital Name:", hospital.name)
         print("Doctor Speciality:", hospital.doctor_speciality)
