@@ -1,123 +1,84 @@
 import pinecone
 import numpy as np
-import sys
-from sklearn.feature_extraction.text import TfidfVectorizer
-from data import hospital_dataset,Hospital
-#from citz_pref import citizen_preferences  #importing citizen preferences  
-from preprocess import preprocess_reviews
-from combine_attributes import attributes_array
 
-pinecone.init(api_key="API_KEY!!!!")
+class Hospital:
+    def __init__(self, id, name, doctor_speciality, phone, cost, icu_facilities, years_of_experience, specialized_units, infection_control_measures, accreditation, surgical_success_rates, patient_satisfaction, insurance_coverage, beds_availability):
+        self.id = id
+        self.name = name
+        self.doctor_speciality = doctor_speciality
+        self.phone = phone
+        self.cost = cost
+        self.icu_facilities = icu_facilities
+        self.years_of_experience = years_of_experience
+        self.specialized_units = specialized_units
+        self.infection_control_measures = infection_control_measures
+        self.accreditation = accreditation
+        self.surgical_success_rates = surgical_success_rates
+        self.patient_satisfaction = patient_satisfaction
+        self.insurance_coverage = insurance_coverage
+        self.beds_availability = beds_availability
 
-# Step 1: Preprocess and vectorize reviews (module preprocess)
-def preprocess_reviews(reviews):
-    preprocessed_reviews = preprocess_reviews(reviews)
-    return preprocessed_reviews
+from data import hospital_dataset
 
-def vectorize_reviews(preprocessed_reviews):
-    vectorizer = TfidfVectorizer()  #vectorization technique
-    review_vectors = vectorizer.fit_transform(preprocessed_reviews).toarray()
-    return review_vectors
+def main():
+    pinecone.init(api_key="API_KEY!!!!")
+    index_name = "hospital-recommendation"
+    pinecone.create_index(index_name=index_name, metric="cosine")
 
-def preprocess_specialized_units(specialized_units):
-    # Preprocess the specialized_units attribute here
-    # For example, you can convert it into a one-hot encoding representation
-    unique_units = set(unit for units in specialized_units for unit in units)
-    unit_mapping = {unit: i for i, unit in enumerate(unique_units)}
-    preprocessed_units = [[unit_mapping[unit] for unit in units] for units in specialized_units]
-    return preprocessed_units
+    index = pinecone.Index(index_name=index_name)
+    embeddings = []
 
-
-# Step 2: Combine attribute vectors (module combine_attributes)
-def combine_attributes(hospital):
-    attribute_vector = np.array([
-        hospital.id,
-        hospital.cost,
-        hospital.icu_facilities,
-        hospital.years_of_experience,
-        hospital.hospital_size,
-        hospital.waiting_time,
-        hospital.technology_equipment,
-        hospital.emergency_response_time,
-        hospital.infection_control_measures,
-        hospital.accreditation,
-        hospital.surgical_success_rates,
-        hospital.patient_satisfaction,
-        hospital.staff_patient_ratio,
-        hospital.avg_length_of_stay,
-        hospital.availability_specialists,
-        hospital.insurance_coverage
-    ])
-    return attribute_vector
-    
-# Step 3: Index the hospital data
-def index_hospitals(hospital_dataset):
-    index = pinecone.Index(index_name="hospital_recommendations")
-
-    attribute_vectors = []
     for hospital in hospital_dataset:
-        attribute_vector = combine_attributes(hospital)
-        attribute_vectors.append(attribute_vector)
+        vector = np.random.rand(100)  # Replace this with your actual vector representation of each hospital
+        embeddings.append(vector)
+        index.upsert(item_id=str(hospital.id), data=vector)
 
-    # Convert review text into vectors
-    preprocessed_reviews = preprocess_reviews([hospital.people_reviews for hospital in hospital_dataset])
-    review_vectors = vectorize_reviews(preprocessed_reviews)
+    def recommend_hospitals(query_vector, top_k=5, preferences=None):
+        response = index.query(queries=query_vector, top_k=top_k)
 
-    # Preprocess specialized_units separately
-    specialized_units = [hospital.specialized_units for hospital in hospital_dataset]
-    preprocessed_units = preprocess_specialized_units(specialized_units)
+        # Filter and sort the recommended hospitals based on user preferences
+        if preferences:
+            response_ids = response.ids
+            filtered_ids = []
+            for hospital_id in response_ids:
+                hospital = hospital_dataset[int(hospital_id) - 1]  # Assuming hospital ids start from 1
+                if preferences["doctor_speciality"] in hospital.doctor_speciality and \
+                        hospital.cost <= preferences["max_cost"] and \
+                        hospital.icu_facilities == preferences["icu_facilities"] and \
+                        hospital.years_of_experience >= preferences["min_experience"]:
+                    filtered_ids.append(hospital_id)
+            
+            response_ids = filtered_ids
 
-    # Pad the preprocessed_units to have a fixed length
-    max_units = max(len(units) for units in preprocessed_units)
-    padded_units = [units + [0] * (max_units - len(units)) for units in preprocessed_units]
+            # Sort the filtered hospital ids based on a criterion (e.g., patient satisfaction)
+            response_ids = sorted(response_ids, key=lambda x: hospital_dataset[int(x) - 1].patient_satisfaction, reverse=True)
 
-    # Combine all the attribute vectors
-    concatenated_vectors = np.concatenate((attribute_vectors, padded_units, review_vectors), axis=1)
+        else:
+            response_ids = response.ids
 
-    # Index the hospital vectors
-    index.upsert(items=np.array(concatenated_vectors), ids=np.array([hospital.name for hospital in hospital_dataset]))
+        return response_ids
 
-    return index
+    # Example usage:
+    query_vector = np.random.rand(100)  # Replace this with your actual query vector
 
-# Step 4: Rank hospitals based on user preferences
-def recommend_hospitals(user_preferences, index, num_results=10):
-    # Convert user preferences into a query vector
-    user_vector = combine_attributes(user_preferences)
-    user_vector = np.concatenate((user_vector, np.zeros_like(user_vector)))  # Pad with zeros for review vectors
+    # User preferences (modify as per your requirements)
+    preferences = {
+        "doctor_speciality": "Orthopedics",
+        "max_cost": 15000,
+        "icu_facilities": True,
+        "min_experience": 10
+    }
 
-    # Search the index to retrieve similar hospitals
-    _, results = index.query(queries=[user_vector], top_k=num_results)
+    recommended_hospitals = recommend_hospitals(query_vector, top_k=5, preferences=preferences)
+    for hospital_id in recommended_hospitals:
+        hospital = hospital_dataset[int(hospital_id) - 1]  # Assuming hospital ids start from 1
+        print("Hospital ID:", hospital.id)
+        print("Hospital Name:", hospital.name)
+        print("Doctor Speciality:", hospital.doctor_speciality)
+        # Add more attributes to display as per your requirement
 
-    return results[0].ids  # Return the IDs of the recommended hospitals
+    pinecone.delete_index(index_name=index_name)
+    pinecone.deinit()
 
-# Step 3: Index the hospital data
-index = index_hospitals(hospital_dataset)
-
-# Step 4: Rank hospitals based on user preferences
-user_preferences = Hospital(
-    id="1",
-    name="User Hospital",
-    doctor_speciality="User Speciality",
-    cost=500,
-    people_reviews="",  #NULL reviews
-    icu_facilities=True, 
-    distance_medicals=10,
-    distance_hotels=5,  
-    years_of_experience=10,
-    hospital_size="Medium",
-    waiting_time=30,  
-    technology_equipment=True,  
-    emergency_response_time="Fast",
-    specialized_units=["Cardiology", "Orthopedics"],  
-    infection_control_measures=True,  
-    accreditation=True,  
-    surgical_success_rates=0.9,
-    patient_satisfaction=4.5,  
-    staff_patient_ratio=0.05,  
-    avg_length_of_stay=5,  
-    availability_specialists=True, 
-    insurance_coverage=True  
-)
-
-recommended_hospitals = recommend_hospitals(user_preferences, index)
-print(recommended_hospitals)
+if __name__ == '__main__':
+    main()

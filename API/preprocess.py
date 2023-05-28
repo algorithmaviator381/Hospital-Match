@@ -3,6 +3,8 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
+#This code snippet is for patients reviews, not needed in current code
+
 def preprocess_reviews(reviews):
     nltk.download('stopwords')
     nltk.download('punkt')
