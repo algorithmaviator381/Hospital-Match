@@ -1,25 +1,12 @@
 import pinecone
 import numpy as np
 from citz_pref import collect_citizen_preferences
-
-class Hospital:
-    def __init__(self, id, name, doctor_speciality, phone, cost, icu_facilities, years_of_experience, specialized_units, infection_control_measures, accreditation, surgical_success_rates, patient_satisfaction, insurance_coverage, beds_availability):
-        self.id = id
-        self.name = name
-        self.doctor_speciality = doctor_speciality
-        self.phone = phone
-        self.cost = cost
-        self.icu_facilities = icu_facilities
-        self.years_of_experience = years_of_experience
-        self.specialized_units = specialized_units
-        self.infection_control_measures = infection_control_measures
-        self.accreditation = accreditation
-        self.surgical_success_rates = surgical_success_rates
-        self.patient_satisfaction = patient_satisfaction
-        self.insurance_coverage = insurance_coverage
-        self.beds_availability = beds_availability
-
 from data import hospital_dataset
+from data import Hospital
+
+pinecone.init(api_key="A_P_I_K_E_Y")
+index_name = "hospital-recommendation"
+pinecone.create_index(name=index_name, dimension=100, metric="cosine")
 
 def main():
     pinecone.init(api_key="A_P_I_K_E_Y")
