@@ -16,18 +16,24 @@ class Hospital:
         self.staff_patient_ratio = staff_patient_ratio
         self.insurance_coverage = insurance_coverage
 
+class citizen_preferences:
+    def __init__(self, id, name, doctor_speciality, cost, icu_facilities, distance_medicals, distance_hotels, years_of_experience, specialized_units, accreditation, surgical_success_rates, staff_patient_ratio, insurance_coverage):
+        self.doctor_speciality = doctor_speciality
+        self.cost = cost
+        self.icu_facilities = icu_facilities
+        self.years_of_experience = years_of_experience
+        self.surgical_success_rates = surgical_success_rates
+        self.staff_patient_ratio = staff_patient_ratio
+        
 def create_recommendation(user_preferences, hospitals, top_n=5):
     similarity_scores = []
     for hospital in hospitals:
         hospital_features = [
             hospital.cost,
             hospital.icu_facilities,
-            hospital.distance_medicals,
-            hospital.distance_hotels,
             hospital.years_of_experience,
             hospital.surgical_success_rates,
             hospital.staff_patient_ratio,
-            hospital.insurance_coverage
         ]
         similarity_score = cosine_similarity([user_preferences], [hospital_features])[0][0]
         similarity_scores.append((hospital, similarity_score))
@@ -37,7 +43,25 @@ def create_recommendation(user_preferences, hospitals, top_n=5):
     recommendations = similarity_scores[:top_n]
     return recommendations
 
-user_preferences = [3000, True, 2.0, 1.5, 5, 80, 0.6, 90]
+
+def collect_citizen_preferences():
+    
+    print("Welcome to the Citizen Preference Collection")
+    print("Please provide your preferences for the following characteristics:\n")
+
+    preferences = [
+        float(input("Average cost of hospitalization: ")),
+        input("ICU Facilities (Yes/No): ").lower() == "yes",
+        int(input("Years of Experience of Doctors: ")),
+        int(input("Surgical success rates of hospital: ")),
+        float(input("Staff patient ratio of hospital: ")),
+        #preferences["doctor_speciality"] = input("Doctor Speciality: ")    
+    ]
+    
+    return preferences
+
+user_preferences = collect_citizen_preferences()
+#user_preferences = collect_citizen_preferences()
 
 hospitals = [
     Hospital(1, "Hospital 1", "Cardiology", 5000, True, 2.5, 1.2, 10, "Cardiac Care Unit", True, 85, 0.5, 90),
@@ -55,5 +79,9 @@ hospitals = [
 recommendations = create_recommendation(user_preferences, hospitals, top_n=3)
 
 for hospital, similarity_score in recommendations:
-    print(f"Recommended Hospital: {hospital.name}")
-    print(f"Similarity Score: {similarity_score}", end="\n\n")
+    print("***********************************************")
+    print(f"Recommended Hospital          : {hospital.name}")
+    print(f"Hospital Cost                 : {hospital.cost}")
+    print(f"ICU Facilities                : {hospital.icu_facilities}")
+    print(f"Years of experience of doctor : {hospital.years_of_experience}")
+    print(f"Staff to patient ratio        : {hospital.staff_patient_ratio}",end="\n\n")
