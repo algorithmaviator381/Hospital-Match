@@ -55,7 +55,7 @@ def collect_citizen_preferences():
         int(input("Years of Experience of Doctors: ")),
         int(input("Surgical success rates of hospital: ")),
         float(input("Staff patient ratio of hospital: ")),
-        #preferences["doctor_speciality"] = input("Doctor Speciality: ")    
+        #preferences["doctor_speciality"] = input("Doctor Speciality: ")
     ]
     
     return preferences
